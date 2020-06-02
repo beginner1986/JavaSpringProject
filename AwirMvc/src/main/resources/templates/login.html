@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Logowanie</title>
+        
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      	
+      	<link th:href="@{/login.css}" rel="stylesheet" />
+    </head>
+    <body>
+
+	<!-- Bootstrap login page template: https://bootsnipp.com/snippets/dldxB -->
+
+		<div class="wrapper fadeInDown">
+		  <div id="formContent">
+		    <!-- Tabs Titles -->
+		
+		    <!-- Icon -->
+		    <div class="fadeIn first">
+		      <img th:src="@{/login.svg}" id="icon" alt="User Icon" />
+		    </div>
+		
+		    <!-- Login Form -->
+		     <div th:if="${param.error}">
+		            Nieprawidłowa nazwa użytkownika lub hasło.<br/>
+		        </div>
+		        <div th:if="${param.logout}">
+		            Jesteś wylogowany.<br/>
+		        </div>
+		        <form th:action="@{/login}" method="post">
+		        <input type="text" id="login" class="fadeIn second" name="username" placeholder="login">
+		        <input type="password" id="password" class="fadeIn third" name="password" placeholder="hasło">
+		        <input type="submit" class="fadeIn fourth" value="Zaloguj">
+		    </form>
+		
+		  </div>
+		</div>
+    
+    <!-- 
+    <h2>Aby uzyskać dostęp do tej opcji musisz się zalogawać</h2><br/>
+        <div th:if="${param.error}">
+            Nieprawidłowa nazwa użytkownika lub hasło.<br/>
+        </div>
+        <div th:if="${param.logout}">
+            Jesteś wylogowany.<br/>
+        </div>
+        <form th:action="@{/login}" method="post">
+        <table>
+            <tr><td> Login: </td><td><input type="text" name="username"/> </td></tr>
+            <tr><td> Hasło: </td><td><input type="password" name="password"/> </td></tr>
+        </table>
+            <div><input type="submit" value="Zaloguj"/></div>
+        </form>
+     -->
+    </body>
+</html>

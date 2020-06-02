@@ -1,0 +1,18 @@
+h2 {
+	text-align: center;
+	margin-top: 50px;
+	font-weight: bold;
+}
+
+thead {
+	 font-weight: bold; 
+	 text-align: center; 
+}
+
+td {
+	text-align: center;
+}
+
+a {
+	margin: 20px;
+}

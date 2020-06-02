@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista użytkowników</title>
+        
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
+        <link th:href="@{/main.css}" rel="stylesheet" />
+    </head>
+    
+    <body class="container">
+    <div class="col-sm-10">
+    	<div class="row">
+        	<h2 class="col-sm-12">LISTA UŻYTKOWNIKÓW</h2><br/>
+		</div>
+
+        <br/><br/>
+		<div class="row">
+	        <table class="table table-striped">
+	        <thead>
+		        <tr>
+		            <td>Imię</td>
+		            <td>Nazwisko</td>
+		            <td>Email</td>
+		        </tr>
+		    </thead>
+		    <tbody th:if="${ not #lists.isEmpty(users) }">
+		        <tr th:each="user : ${users}">
+		            <td th:text="${user.firstName}"></td>
+		            <td th:text="${user.lastName}"></td>
+		            <td th:text="${user.email}"></td>
+		        </tr>
+		    </tbody>
+	    </table>
+	</div>
+	
+	<br/><br/>
+	<div class="row justify-content-sm-center">
+        <a th:href="@{'/user/addUserPage'}" class="col-sm-3 btn btn-primary stretched-link">Dodaj użytkownika</a><br/>
+        <a th:href="@{'/'}" class="col-sm-3 btn btn-primary stretched-link">Strona główna</a>
+	</div>
+	</div>
+</body>
+</html>
