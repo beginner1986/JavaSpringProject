@@ -2,10 +2,14 @@ package edu.zut;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.zut.model.User;
 import edu.zut.repository.UserRepository;
@@ -17,14 +21,16 @@ public class UserRepositoryTest {
 	private UserRepository repository;
 	
 	@Test
-	public void userRepositoryTest() {
+	public void addUserToRepoTest() {
 		User addedUser = new User(0, "John", "Smith", "j.smith@gmail.com");
 		repository.save(addedUser);
 		
-		User foundUser = repository.findByFirstName(addedUser.getFirstName()).get(0);
+		User foundUser = repository.findByFirstName("John").get(0);
 		
 		assertNotNull(foundUser);
-		assertEquals(addedUser, foundUser);
+		assertEquals(addedUser.getFirstName(), foundUser.getFirstName());
+		assertEquals(addedUser.getLastName(), foundUser.getLastName());
+		assertEquals(addedUser.getEmail(), foundUser.getEmail());
 	}
-	
+
 }

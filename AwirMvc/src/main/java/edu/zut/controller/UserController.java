@@ -53,7 +53,6 @@ public class UserController {
         User user = repository.findById(id).get();
         log.info("Usuwanie użytkownika: " + user);
         repository.delete(user);
-        
         model.addAttribute("users", repository.findAll());
         
         return "redirect:/user/listUsers";
