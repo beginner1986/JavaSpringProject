@@ -16,3 +16,9 @@ td {
 a {
 	margin: 20px;
 }
+
+.logout {
+	margin-top: 10px;
+	position: absolute;
+	right: 0px;
+}

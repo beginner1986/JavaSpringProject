@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers("/user/**").access("hasRole('ROLE_USER')")
 			.antMatchers("/", "/**").access("permitAll")
-			.and().formLogin().loginPage("/login");
+			.and().formLogin().loginPage("/login")
+			.and().logout().logoutSuccessUrl("/");
 		
 		// access to h2-console
 		http.csrf().disable();

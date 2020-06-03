@@ -13,6 +13,12 @@
     
     <body class="container">
     <div class="col-sm-10">
+    	<div class="row logout">
+    		<form method="post" th:action="@{/logout}">
+    			<input type="submit" value="WYLOGUJ" class="btn btn-primary stretched-link">
+    		</form>
+    	</div>
+    
     	<div class="row">
         	<h2 class="col-sm-12">LISTA UŻYTKOWNIKÓW</h2><br/>
 		</div>
