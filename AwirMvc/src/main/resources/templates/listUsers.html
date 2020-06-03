@@ -28,16 +28,22 @@
 	        <table class="table table-striped">
 	        <thead>
 		        <tr>
+		        	<td>ID</td>
 		            <td>Imię</td>
 		            <td>Nazwisko</td>
 		            <td>Email</td>
+		            <td>Usuń</td>
 		        </tr>
 		    </thead>
 		    <tbody th:if="${ not #lists.isEmpty(users) }">
 		        <tr th:each="user : ${users}">
+		        	<td th:text="${user.id}"></td>
 		            <td th:text="${user.firstName}"></td>
 		            <td th:text="${user.lastName}"></td>
 		            <td th:text="${user.email}"></td>
+		            <td><a th:href="@{/user/deleteUser/{id}(id=${user.id})}">
+		            	<img th:src="@{/delete.png}" class="delete"/>
+		            </a></td>
 		        </tr>
 		    </tbody>
 	    </table>

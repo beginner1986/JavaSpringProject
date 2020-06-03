@@ -11,4 +11,5 @@ import edu.zut.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	
 	List<User> findByFirstName(String userName);
+	void deleteById(Long id);
 }
