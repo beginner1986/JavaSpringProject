@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +27,7 @@ public class UserRestController {
 	UserRepository repository;
 	
 	@GetMapping("/users")
-	List<User> getAllUsers() {
+	public List<User> getAllUsers() {
 		
 		log.info("REST: Listowanie użutkowników.");
 		
@@ -33,20 +35,20 @@ public class UserRestController {
 	}
 	
 	@GetMapping("/{id}")
-	User getUser(@PathVariable Long id) {
+	public ResponseEntity<User> getUser(@PathVariable Long id) {
 		
 		log.info("REST: Wyświtlanie pojedynczego użutkownika.");
 		
 		Optional<User> user = repository.findById(id);
 		
 		if(user.isPresent())
-			return user.get();
+			return new ResponseEntity<>(user.get(), HttpStatus.OK);
 		
-		return null;
+		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
 	
 	@PostMapping("/{id}")
-	User addUser(@RequestBody User user) {
+	public User addUser(@RequestBody User user) {
 		
 		log.info("REST: Zapisywanie pojedynczego użytkownika.");
 		
@@ -54,12 +56,16 @@ public class UserRestController {
 	}
 	
 	@DeleteMapping("/{id}")
-	void deleteUser(@PathVariable Long id) {
+	public ResponseEntity<User> deleteUser(@PathVariable Long id) {
 		
 		log.info("REST: Usuwanie użytkownika.");
 		
-		if(repository.findById(id).isPresent())		
+		if(repository.findById(id).isPresent())	{
 			repository.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 }
