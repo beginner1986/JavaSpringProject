@@ -1,6 +1,7 @@
 package edu.zut.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,7 +37,12 @@ public class UserRestController {
 		
 		log.info("REST: Wyświtlanie pojedynczego użutkownika.");
 		
-		return repository.findById(id).get();
+		Optional<User> user = repository.findById(id);
+		
+		if(user.isPresent())
+			return user.get();
+		
+		return null;
 	}
 	
 	@PostMapping("/{id}")
@@ -52,7 +58,8 @@ public class UserRestController {
 		
 		log.info("REST: Usuwanie użytkownika.");
 		
-		repository.deleteById(id);
+		if(repository.findById(id).isPresent())		
+			repository.deleteById(id);
 	}
 
 }
