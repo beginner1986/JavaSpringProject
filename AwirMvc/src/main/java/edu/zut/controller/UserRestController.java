@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -68,6 +70,46 @@ public class UserRestController {
 			repository.deleteById(id);
 		}
 		
+	}
+	
+	@PutMapping(path = "/{id}", consumes = "application/json")
+	public ResponseEntity<User> replaceUser(@PathVariable Long id, @RequestBody User putUser) {
+		
+		log.info("REST: Zamiana użytkownika");
+		
+		Optional<User> optional = repository.findById(id);
+		if(!optional.isPresent())
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		
+		if(optional.get().equals(putUser))
+			return new ResponseEntity<>(putUser, HttpStatus.NOT_MODIFIED);
+		
+		repository.save(putUser);
+		return new ResponseEntity<>(putUser, HttpStatus.OK);
+	}
+	
+	@PatchMapping(path = "/{id}", consumes = "application/json")
+	public ResponseEntity<User> editUser(@PathVariable Long id, @RequestBody User patchUser) {
+		
+		log.info("REST: Edycja użytkownika");
+		
+		Optional<User> optional = repository.findById(id);
+		if(!optional.isPresent())
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		 
+		User newUser = optional.get();
+		
+		if(patchUser.getFirstName() != null)
+			newUser.setFirstName(patchUser.getFirstName());
+		
+		if(patchUser.getLastName() != null)
+			newUser.setLastName(patchUser.getLastName());
+		
+		if(patchUser.getEmail() != null)
+			newUser.setEmail(patchUser.getEmail());
+
+		repository.save(newUser);
+		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}
 
 }
