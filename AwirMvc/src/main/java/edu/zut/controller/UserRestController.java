@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.zut.model.User;
@@ -26,7 +27,8 @@ public class UserRestController {
 	@Autowired
 	UserRepository repository;
 	
-	@GetMapping("/users")
+	@GetMapping(path = "/users", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
 	public List<User> getAllUsers() {
 		
 		log.info("REST: Listowanie użutkowników.");
@@ -34,7 +36,7 @@ public class UserRestController {
 		return repository.findAll();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(path = "/{id}", produces = "application/json")
 	public ResponseEntity<User> getUser(@PathVariable Long id) {
 		
 		log.info("REST: Wyświtlanie pojedynczego użutkownika.");
@@ -47,7 +49,8 @@ public class UserRestController {
 		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
 	
-	@PostMapping("/{id}")
+	@PostMapping(path = "/{id}", consumes = "application/json")
+	@ResponseStatus(HttpStatus.CREATED)
 	public User addUser(@RequestBody User user) {
 		
 		log.info("REST: Zapisywanie pojedynczego użytkownika.");
@@ -55,17 +58,16 @@ public class UserRestController {
 		return repository.save(user);
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+	@DeleteMapping(path = "/{id}", produces = "application/json")
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public void deleteUser(@PathVariable Long id) {
 		
 		log.info("REST: Usuwanie użytkownika.");
 		
 		if(repository.findById(id).isPresent())	{
 			repository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 }
