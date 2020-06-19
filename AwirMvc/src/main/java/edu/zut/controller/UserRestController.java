@@ -61,7 +61,7 @@ public class UserRestController {
 	}
 	
 	@DeleteMapping(path = "/{id}", produces = "application/json")
-	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ResponseStatus(HttpStatus.OK)
 	public void deleteUser(@PathVariable Long id) {
 		
 		log.info("REST: Usuwanie użytkownika.");
