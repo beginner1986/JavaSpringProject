@@ -14,7 +14,7 @@ public class HomeController {
 	@RequestMapping(value="/", method=RequestMethod.GET) 		
 	public String home(Model model) {
 		
-		log.info("Wejście na stronę główną");		
+		log.info("WWW: Wejście na stronę główną");		
 		
 		return "home";
 	}

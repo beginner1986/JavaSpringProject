@@ -29,7 +29,7 @@ public class UserRestController {
 	@Autowired
 	UserRepository repository;
 	
-	@GetMapping(path = "/users", produces = "application/json")
+	@GetMapping(produces = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public List<User> getAllUsers() {
 		
@@ -51,7 +51,7 @@ public class UserRestController {
 		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
 	
-	@PostMapping(path = "/{id}", consumes = "application/json")
+	@PostMapping(consumes = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public User addUser(@RequestBody User user) {
 		
@@ -96,6 +96,9 @@ public class UserRestController {
 		Optional<User> optional = repository.findById(id);
 		if(!optional.isPresent())
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		
+		if(optional.get().equals(patchUser))
+			return new ResponseEntity<>(patchUser, HttpStatus.NOT_MODIFIED);
 		 
 		User newUser = optional.get();
 		
