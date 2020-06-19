@@ -23,7 +23,7 @@ public class UserController {
 	
 	@RequestMapping(value="/listUsers", method=RequestMethod.GET)
     public String listUsers(Model model) {
-		log.info("Listowanie użytkowników");
+		log.info("WWW: Listowanie użytkowników");
 
 		List<User> users = this.repository.findAll();
 
@@ -34,14 +34,14 @@ public class UserController {
 	
     @RequestMapping(value="/addUserPage", method=RequestMethod.GET)
     public String addUserPage() {
-    	log.info("Wyświetlono stronę dodawania nowego użytkownika");
+    	log.info("WWW: Wyświetlono stronę dodawania nowego użytkownika");
     	
         return "addUser";
     }
     
     @RequestMapping(value="/addUser", method=RequestMethod.POST)
     public String addUser(User user) {
-    	log.info("Dodawanie użytkownika do bazy");
+    	log.info("WWW: Dodawanie użytkownika do bazy");
     	
         repository.save(user);
         return "redirect:/user/listUsers";
@@ -51,7 +51,9 @@ public class UserController {
     public String deleteBuyer(@PathVariable("id") Long id, Model model){
     	
         User user = repository.findById(id).get();
-        log.info("Usuwanie użytkownika: " + user);
+        
+        log.info("UWWW: suwanie użytkownika: " + user);
+        
         repository.delete(user);
         model.addAttribute("users", repository.findAll());
         

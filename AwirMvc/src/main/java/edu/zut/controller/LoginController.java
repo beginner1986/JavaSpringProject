@@ -14,7 +14,7 @@ public class LoginController {
 	@RequestMapping(value="/login", method=RequestMethod.GET) 		
 	public String home(Model model) {
 		
-		log.info("Wejście na stronę logowania.");		
+		log.info("WWW: Wejście na stronę logowania.");		
 		
 		return "login";
 	}
